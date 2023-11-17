@@ -14,6 +14,45 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+		<style>
+			.left {
+				float: left;
+			}
+			 .right {
+				float: right;
+			 }
+			 .clear {
+				clear: both;
+			 }
+			 #game_matrix table td {
+				border: 1px solid black;
+				cursor: pointer;
+				width: 100px;
+				height: 100px;
+			 }
+			 #game_matrix #name {
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 18px;
+			 }
+			 #game_matrix #find {
+				width: 100%;
+				height: 120px;
+				line-height: 120px;
+				border: 1px solid black;
+			 }
+			 #game_matrix #start {
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 18px;
+				color:black;
+				background-color: coral;
+			 }
+
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -100,8 +139,27 @@
 					</section>
 
 
-					<section>
+					<section id = 'game_matrix'>
 						<h3>Игра 1. Скоростная матрица</h3>
+						<div id = "wrapper">
+							<div id = "field" class = "left">
+							</div>
+							<div id = "info" class = "right">
+								<div>
+									<input type = "text"
+									id = "name"
+									value = "dk"></div>
+									<div id = "round"></div>
+									<div id = "time"></div>
+									<div id = "find">Цвет ячейки</div>
+									<div id = "score"></div>
+									<div>
+									 <input type = "button" id = "start" value = "Начать игру">
+								</div>
+							</div>
+							</div><div>
+							<div class = "clear"></div>
+						</div>
 					</section>
 
 					<section>
@@ -198,6 +256,82 @@
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
+		</script>
+		<script>
+			
+			class GameMatrix{
+				constructor() {
+					this.field = '';
+					this.colors = [];
+				}
+
+				generateColors() {
+					let num =  randomInteger(6);
+					this.find = colors[num];
+					for (let i = 0; i < 7; i++) {
+						this.colors = this.colors.concat(Array(i == num ? 1 : 4).fill(colors[i]));
+					}
+					
+					console.log(this.colors);
+					return this;
+				}
+				setFindColor(element) {
+					element.style.backgroundColor = this.find;
+					return this;
+				}
+				generateField () {
+					this.field = `
+						<table>
+					`;
+					for (let i = 0; i < 5; i++){
+						this.field += `<tr>`
+							for (let j = 0; j < 5; j++){
+								this.field += `<td style = "background: ${this.colors[i*5+j]}"></td>`;
+							}
+						this.field += `</tr>`
+					}
+					this.field += `
+						</table>
+					`;
+					return this;
+				}
+				fillField(element) {
+					element.innerHTML = this.field;
+				}
+			}
+			 
+			function randomInteger(max) {
+				return Math.floor(Math.random()*(max+1));
+			}
+
+			function randomRgbColor () {
+				let r = randomInteger(255);
+				let g = randomInteger(255);
+				let b = randomInteger(255);
+				return `rgb(${r}, ${g}, ${b})`;
+			}
+			let colors = [
+				'rgb(255, 0, 0)' ,
+				'rgb(0, 255, 0)' ,
+				'rgb(0, 0, 255)' ,
+				'rgb(255, 255, 0)' ,
+				'rgb(255, 255, 255)' ,
+				'rgb(34, 34, 34)' ,
+			];
+			 colors.push(randomRgbColor());
+
+			window.onload = () => {
+				let gameMatrix = new GameMatrix(); 
+				if (sessionStorage.getItem('game_matrix_round') === null) {
+					sessionStorage.setItem('game_matrix_round', 1);
+				}
+				document.querySelector('#game_matrix #round').innerHTML = 
+				`Раунд ${sessionStorage.getItem('game_matrix_round')}`;
+
+				gameMatrix.generateColors(colors).
+				setFindColor(document.querySelector('#game_matrix #find')).generateField().
+				fillField(document.querySelector('#game_matrix #field'));
+			}
 		</script>
 	</body>
 </html>

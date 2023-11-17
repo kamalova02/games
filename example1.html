@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>hello w is this</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, 
+        initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Пример</title>
+</head>
+<style>
+.heading {color: purple;}
+#ball {background: lightblue;}
+#timetable {background: lightcyan;}
+#periods {background: lightpink;}
+#notes {background: lightslategray;}
+#first {font-weight: bold; font-style: italic;}
+#second {font-style: oblique;}
+#forth {text-decoration: line-through;}
+#fifth {font-weight: bold; font-style: italic;}
+
+</style>
+<script>
+    console.log('Hello world!');
+</script>
+<body>
+    <h2 class="heading"> МЯЧИК </h2>
+    <div id="ball" <b>Нашя Таня громко плачет:</b><br>
+        <i>Уронила в речку мячик.</i><br>
+        -Тише, Танечка, не плачь: <br>
+        <strike>Не утонет в речке мяч.</strike><br>
+        <b>Автор: Барто</b><br> ></div>
+
+
+    <h3 class="heading" > Весёлые картинки <br>
+        <img src="jdyn.jpg" alt="Пара-прогуливатель">
+    </h3>
+
+
+
+    <h4 class="heading"> Расписание звонков</h4>
+    <div id="timetable"><ol>
+        <li>08:20 - 09:50</li>
+        <li>10:00 - 11:30</li>
+        <ul><li>Перемена 40 минут</li></ul>
+    <li>12:10 - 13:40 </li>
+    <li>13:50 - 15:20</li>
+    <li>15:30 - 17:00</li>
+    <ul><li>Перемена 20 минут</li></ul>
+    <li>17:20 - 18:50</li>
+    <li>19:00 - 20:30</li>
+    </ol>
+    </div>
+
+
+    <h5 class="heading"> Расписание пар</h5> <br>
+        <div id="periods"><table>
+            <thead>
+                <tr>
+                    <td>Номер пары</td>
+                    <td>Название предмета</td>
+                    <td>Аудитория</td>
+                    <td>Преподватель</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>6</td>
+                    <td>Компьютерные технологии в бизнесе</td>
+                    <td>216</td>
+                    <td>Мачтаков А. В.</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Компьютерные технологии в бизнесе</td>
+                    <td>216</td>
+                    <td>Мачтаков А. В.</td>
+                </tr>
+            </tbody>
+    </tbody>
+</table>
+    </div>
+
+
+    <h6 class="heading"> Дневник </h6> <br>
+        <div id="notes"><label for="fio">ФИО</label>
+        <input type="text" name="fio" value="Лысковой Екатерины Викторовны"></div>
+        <div>
+        <label for="gender">Пол</label>
+        <input type="radio" name="gender" value="f" checked>Ж
+        <input type="radio" name="gender" value="m">М
+    </div>
+    <div>
+        <label for="school"> Школа</label>
+        <input type="text" name="school" value="Школы 14">
+    </div>
+    <div>
+        <label for="school">Населенный пункт</label>
+        <input type="text" name="locality" value="Города Глазова">
+    </div>
+    <div>
+        <label for="class"> Класс</label>
+        <input type="text" name="class" value="1">
+    </div>
+    <div>
+        <label for="color">Цвет обложки</label>
+        <input type="color" name="color" value="#cac7e1">
+    </div>
+    <div>
+        <label for="year">Год начала учебы</label>
+        <input type="number" name="year" value="2009">
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="text" name="email" value="fgfgf@com">
+    </div>
+    <div>
+        <label for="phone">Телефон</label>
+        <input type="tel" name="phone" value="+7">
+    </div>
+    <div>
+        <input type="submit" id="create" value="Создать">
+    </div>
+
+    <h6 class="heading"> Стих через CSS </h6> <br>
+    <div id="first"> Наша Таня громко плачет: </div>
+    <div id="second">Уронила в речку мячик. </div>
+    <div id="third">-Тише, Танечка, не плачь:</div>
+    <div id="forth">Не утонет в речке мяч.</div>
+    <div id="fifth">Автор: А. Л. Барто</div>
+
+
+
+    <h6 class="heading"> Картинка </h6>
+    <div></div>
+    
+    <script>
+        window.onload = () => {
+            document.querySelector('#create').onclick = (e) => {
+                e.preventDefault();
+                let newWin = window.open("about:blank", "Дневник", "width=420, height=594");
+                let template = `
+                <style>
+                    body {
+                        margin-top: 100px;
+                        text-align: center;
+                        font-size: large;
+                        background-color: ${document.querySelector('[name=color]').value}
+                    }
+                    .contact {
+                        margin-top: 50px;
+                    }
+                </style>
+                <h1>Дневник</h1>
+                <div>Учени${document.querySelector('[name=gender]:checked').value == 'm' ? 'ка' : 'цы'} 
+                ${document.querySelector('[name=class]').value} класса</div>
+                <div>${document.querySelector('[name=school]').value} ${document.querySelector('[name=locality]').value}</div>
+                <div>${document.querySelector('[name=fio]').value}</div>
+                <div>${document.querySelector('[name=year]').value}/${+document.querySelector('[name=year]').value+1} учебного года</div>
+                <div clas="contact">${document.querySelector('[name=email]').value}, ${document.querySelector('[name=phone]').value}</div>
+                `;
+                newWin.document.write(template);
+            }
+        }
+    </script>
+
+</body>
+</html>
